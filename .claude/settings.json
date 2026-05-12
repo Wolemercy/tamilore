@@ -3,7 +3,11 @@
     "allow": [
       "Bash(brew install *)",
       "Read(//tmp/**)",
-      "Read(//private/tmp/**)"
+      "Read(//private/tmp/**)",
+      "Bash(mkdir -p /Users/wolemercy/Documents/personal/solo/tamilore/flashcards)",
+      "Bash(mv /Users/wolemercy/Documents/personal/solo/tamilore/flashcards.md /Users/wolemercy/Documents/personal/solo/tamilore/flashcards/cards.md)",
+      "Bash(mv /Users/wolemercy/Documents/personal/solo/tamilore/sync_flashcards.py /Users/wolemercy/Documents/personal/solo/tamilore/flashcards/sync.py)",
+      "Bash(python3 /Users/wolemercy/Documents/personal/solo/tamilore/flashcards/sync.py --dry-run)"
     ]
   }
 }

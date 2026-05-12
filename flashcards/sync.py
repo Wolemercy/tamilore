@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Sync flashcards.md to Anki via AnkiConnect.
+"""Sync cards.md to Anki via AnkiConnect.
 
-Parses fenced code blocks under "## ..." headings in flashcards.md, extracts
+Parses fenced code blocks under "## ..." headings in cards.md, extracts
 tab-separated Q/A pairs, and adds new cards to Anki. Idempotent: cards whose
 "Front" field already exists in Anki (in any deck, same note type) are skipped.
 
@@ -11,9 +11,9 @@ Requirements:
 - Python 3.8+
 
 Usage:
-    python sync_flashcards.py                  # add new cards
-    python sync_flashcards.py --dry-run        # parse only, no Anki calls
-    python sync_flashcards.py --deck-prefix Foo --tag bar
+    python flashcards/sync.py                  # add new cards
+    python flashcards/sync.py --dry-run        # parse only, no Anki calls
+    python flashcards/sync.py --deck "My Deck"
 """
 
 import argparse
@@ -22,9 +22,11 @@ import re
 import sys
 import urllib.error
 import urllib.request
+from pathlib import Path
 
 
 ANKICONNECT_URL = "http://localhost:8765"
+DEFAULT_CARDS_FILE = str(Path(__file__).resolve().parent / "cards.md")
 
 
 def anki(action, **params):
@@ -77,7 +79,7 @@ def parse_flashcards(text):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--file", default="flashcards.md")
+    p.add_argument("--file", default=DEFAULT_CARDS_FILE)
     p.add_argument("--deck-prefix", default="Tamilore", help="hierarchical mode: cards go to '<prefix>::<section>'")
     p.add_argument("--deck", help="flat mode: put ALL cards in this single deck (overrides --deck-prefix); section becomes a tag")
     p.add_argument("--note-type", default="Basic", help="Anki note type (must have Front/Back fields)")
