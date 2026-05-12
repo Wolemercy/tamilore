@@ -25,7 +25,3 @@
 ## Link back
 
 *One sentence: how does this topic connect to the previous one? What does it depend on, what does it change, what new problem does it create that the next topic will address?*
-
-## Open questions
-
-*Things you didn't fully understand and want to revisit.*

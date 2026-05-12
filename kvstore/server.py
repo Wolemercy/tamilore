@@ -9,12 +9,22 @@ def createTCPSocket(hostname, port):
     tcp_socket.listen(2)
     
     print(f"Waiting for connection")
-    time.sleep(30)
 
-    # conn, address = tcp_socket.accept()
-    # with conn:
-    #   print(f"Connected: {address}")
-    #   conn.close()
+    while True:
+      conn, address = tcp_socket.accept()
+      with conn:
+        print(f"Connected: {address}")
+        total = 0
+        while True:
+          data = conn.recv(1024)
+          if not data:
+            break
+          total += len(data)
+          print(f"Bytes received: {len(data)}")
+        print(f"Client {address} sent {total} total; closed")
+        # while True:
+        #   if not data:
+        #     break
 
 
 def closeSocket(socket: socket):
@@ -24,7 +34,7 @@ def closeSocket(socket: socket):
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
-  parser.add_argument("--port", type=int, default=5000)
+  parser.add_argument("--port", type=int, default=5001)
   parser.add_argument("--hostname", type=str, default="localhost")
   args = parser.parse_args()
 
